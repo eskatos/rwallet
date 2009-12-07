@@ -1,0 +1,20 @@
+== rwallet
+
+
+    rwallet is a command line wallet written in ruby and implemented as a simple
+    cyphered key value store meant to be used in unix shell scripts.
+
+
+=== install
+
+Install the gem by running the following command in a directory containing the rwallet distribution:
+
+    gem install rwallet
+
+This will install rwallet and its dependencies. After that you should be able to use the rwallet command.
+
+
+=== build
+
+Common rake tasks are : clean, gem, rdoc. A package task exists that produce a tar.gz distribution for manual installing or distribution packaging.
+
