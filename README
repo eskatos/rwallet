@@ -4,6 +4,12 @@
     rwallet is a command line wallet written in ruby and implemented as a simple
     cyphered key value store meant to be used in unix shell scripts.
 
+== versions
+
+    X.Y.Z
+    X increment denotes a wallet format change
+    Y increment denotes features changes
+    Z increment denotes bug fixes
 
 === install
 
