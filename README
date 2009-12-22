@@ -19,6 +19,7 @@ Install the gem by running the following command in a directory containing the r
 
 This will install rwallet and its dependencies. After that you should be able to use the rwallet command.
 
+rwallet use ezcrypto but unfortunately the ezcrypto gem does not trigger the openssl gem install, you'll have to install it manually
 
 === build
 

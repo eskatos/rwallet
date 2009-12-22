@@ -7,7 +7,7 @@ require 'tty_password_asker'
 
 
 APP_NAME="rwallet"
-APP_VERSION="0.0.3"
+APP_VERSION="1.0.0"
 APP_DESCRIPTION="rwallet is a command line wallet written in ruby and implemented
 as a simple cyphered key value store meant to be used in unix shell scripts"
 DATA_DIR = "#{ENV['HOME']}/.#{APP_NAME}"
@@ -47,7 +47,7 @@ Return status:
  0 if OK,
  1 is something went wrong
 
-Send bugs to eskatos@n0pe.org"
+Send bugs to paul@nosphere.org"
     exit error_code
 end
 
