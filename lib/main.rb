@@ -103,7 +103,7 @@ begin
         wallet = Wallet.new(wallet_path, password_asker)
         puts wallet.get(ARGV[2])
 
-    when 'remove'
+    when 'remove':
         raise "Wallet '#{wallet_name}' does not exists." if not FileTest.exists?(wallet_path)
         raise "remove command need one argument: name " if ARGV[2].nil?
         wallet = Wallet.new(wallet_path, password_asker)
