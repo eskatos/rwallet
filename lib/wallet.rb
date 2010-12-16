@@ -22,38 +22,38 @@ class Wallet
             data = Marshal.load(File.new(@path,"r"))
             @algorithm = data['algorithm']
             @cypherer = Wallet.build_crypto_key(@password_asker.ask_secret("[Opening #{@name} wallet]"), @algorithm)
-            @passwords = Marshal.load(@cypherer.decrypt(data['passwords']))
+            @secrets = Marshal.load(@cypherer.decrypt(data['passwords']))
         else
             @algorithm = algorithm
             @cypherer = Wallet.build_crypto_key(@password_asker.ask_new_secret("[Creating #{@name} wallet]"), @algorithm)
-            @passwords = {}
+            @secrets = {}
         end
     end
 
     def entries
-        @passwords.keys
+        @secrets.keys
     end
 
     def put(name, value = nil)
         if value.nil?
             value = @password_asker.ask_new_secret("[Creating #{name} value]")
         end
-        @passwords[name] = @cypherer.encrypt(value)
+        @secrets[name] = @cypherer.encrypt(value)
     end
 
     def get(name)
-        @cypherer.decrypt(@passwords[name])
+        @cypherer.decrypt(@secrets[name])
     end
 
     def remove(name)
-        @passwords.delete(name)
+        @secrets.delete(name)
     end
 
     def save
         File.open(@path,"w") do |f|
             data = Hash.new
             data['algorithm'] = @algorithm
-            data['passwords'] = @cypherer.encrypt(Marshal.dump(@passwords))
+            data['passwords'] = @cypherer.encrypt(Marshal.dump(@secrets))
             f.write(Marshal.dump(data))
         end
     end

@@ -9,13 +9,13 @@ require 'spec/rake/spectask'
 
 spec = Gem::Specification.new do |s|
   s.name = 'rwallet'
-  s.version = '1.0.0'
+  s.version = '1.1.0-alpha1'
   s.has_rdoc = true
   s.extra_rdoc_files = ['README', 'LICENSE']
   s.summary = 'Command line password wallet written in ruby'
   s.description = s.summary
   s.author = 'Paul MERLIN'
-  s.email = 'eskatos@n0pe.org'
+  s.email = 'paul@nosphere.org'
   s.executables = ['rwallet']
   s.default_executable = 'rwallet'
   s.files = %w(LICENSE README Rakefile) + Dir.glob("{bin,lib,spec}/**/*")
