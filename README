@@ -29,7 +29,7 @@ Here is the command line help output so you can see what are the rwallet feature
 
     Usage:  rwallet wallet_name command [OPTIONS..]
 
-     Wallets are stored in /home/paul/.rwallet.
+     Wallets are stored in /home/eskatos/.rwallet.
 
      Password and values are asked without echoing them and prompt is written to
      stderr to allow using output with redirections.
