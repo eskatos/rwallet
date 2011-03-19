@@ -58,7 +58,7 @@ printusage(1) if ARGV.length < 2
 wallet_name = ARGV[0]
 wallet_path = "#{DATA_DIR}/#{wallet_name}.#{Wallet::EXTENSION}"
 command = ARGV[1]
-printusage(1) unless %w{create delete list put get remove}.include? command
+printusage(1) unless %w{create delete list put get remove dump}.include? command
 
 
 # dispatch commands
@@ -78,7 +78,7 @@ begin
         wallet.save
 
     when 'delete'
-                raise "Wallet '#{wallet_name}' does not exists." if not FileTest.exists?(wallet_path)
+	raise "Wallet '#{wallet_name}' does not exists." if not FileTest.exists?(wallet_path)
         if ARGV[2] != "iknowwhatiamdoing"                     # TODO : document me
             STDERR.puts "Type the following sentence to confirm deletion: \"I know what I am doing.\""
             raise "Bad spelling, deletion aborted!" if not STDIN.readline.chomp == "I know what I am doing."
@@ -86,19 +86,19 @@ begin
         File.delete(wallet_path)
 
     when 'list'
-                raise "Wallet '#{wallet_name}' does not exists." if not FileTest.exists?(wallet_path)
+	raise "Wallet '#{wallet_name}' does not exists." if not FileTest.exists?(wallet_path)
         wallet = Wallet.new(wallet_path, password_asker)
         puts wallet.entries
 
     when 'put'
-                raise "Wallet '#{wallet_name}' does not exists." if not FileTest.exists?(wallet_path)
+	raise "Wallet '#{wallet_name}' does not exists." if not FileTest.exists?(wallet_path)
         raise "put command need at least one argument: name " if ARGV[2].nil?
         wallet = Wallet.new(wallet_path, password_asker)
         wallet.put(ARGV[2],ARGV[3])
         wallet.save
 
     when 'get'
-                raise "Wallet '#{wallet_name}' does not exists." if not FileTest.exists?(wallet_path)
+	raise "Wallet '#{wallet_name}' does not exists." if not FileTest.exists?(wallet_path)
         raise "get command need one argument: name " if ARGV[2].nil?
         wallet = Wallet.new(wallet_path, password_asker)
         puts wallet.get(ARGV[2])
@@ -110,7 +110,12 @@ begin
         wallet.remove(ARGV[2])
         wallet.save
 
+    when 'dump'
+        raise "Wallet '#{wallet_name}' does not exists." if not FileTest.exists?(wallet_path)
+        wallet = Wallet.new(wallet_path, password_asker)
+	wallet.dump
+	
     end
 rescue
-    STDERR.puts "ERROR: " + $!
+    STDERR.puts "ERROR: " + $!.to_s
 end

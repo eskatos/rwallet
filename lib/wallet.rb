@@ -57,6 +57,12 @@ class Wallet
             f.write(Marshal.dump(data))
         end
     end
+    
+    def dump
+      @secrets.keys.each do |k|
+	puts "#{k}  =>  #{get k}"
+      end
+    end
 
     :private
 
