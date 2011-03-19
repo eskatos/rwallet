@@ -19,17 +19,16 @@ def printusage error_code
 
 Usage:  #{APP_NAME} wallet_name command [OPTIONS..]
 
- Wallets are stored in #{ENV['HOME']}/.#{APP_NAME}.
-
- Password and values are asked without echoing them and prompt is written to
- stderr to allow using output with redirections.
+ Your wallets are in #{ENV['HOME']}/.#{APP_NAME}.
+ Password and secrets are asked without echoing them.
+ Prompt is written to stderr to allow using outputed secrets in scripts.
 
 Available commands:
  create [algorithm]     Create a new wallet
  delete                 Delete a wallet
- put name [value]       Put a new key-value in a wallet
- get name               Get a value from a wallet
- remove name            Remove a key-value from a wallet
+ put name [secret]      Put a new secret in a wallet
+ get name               Get a secret from a wallet
+ remove name            Remove a secret from a wallet
 
  Known algorithms are : blowfish, aes256 and des.
  Blowish is the default.
@@ -37,18 +36,18 @@ Available commands:
 Examples (all using a 'foo' wallet)
  #{APP_NAME} foo create aes256         Create an empty wallet named 'foo' using the aes256 algorithm
  #{APP_NAME} foo delete                Delete the 'foo' wallet
- #{APP_NAME} foo list                  List all entries from the 'foo' wallet
- #{APP_NAME} foo put myKey myValue     Add a myKey entry in the 'foo' wallet with the provided value
- #{APP_NAME} foo put aKey              Add an aKey entry in the 'foo' wallet, rwallet will ask for the value
- #{APP_NAME} foo get aKey              Get the aKey entry from the 'foo' wallet
- #{APP_NAME} foo remove myKey          Remove the myKey entry from the 'foo' wallet
+ #{APP_NAME} foo list                  List all secrets from the 'foo' wallet
+ #{APP_NAME} foo put bar secret        Save a secret named 'bar' in the 'foo' wallet
+ #{APP_NAME} foo put bar               Ask for a new secret named 'bar' to be saved in the 'foo' wallet
+ #{APP_NAME} foo get bar               Output the secret named 'bar' from the 'foo' wallet
+ #{APP_NAME} foo remove bar            Remove the secret named 'bar' from the 'foo' wallet
 
 Return status:
  0 if OK,
  1 is something went wrong
 
 If you find a bug or would like a new feature to be added,
-create a new issue in the github project: https://github.com/Codeartisans/rwallet"
+create a new issue in the github project: https://github.com/eskatos/rwallet"
     exit error_code
 end
 
@@ -69,7 +68,7 @@ password_asker = TtyPasswordAsker.new
 begin
     case command
 
-    when 'create':
+    when 'create'
         raise "Wallet '#{wallet_name}' already exists." if FileTest.exists?(wallet_path)
         if ARGV[2].nil?
             wallet = Wallet.new(wallet_path, password_asker)
@@ -78,7 +77,7 @@ begin
         end
         wallet.save
 
-    when 'delete':
+    when 'delete'
                 raise "Wallet '#{wallet_name}' does not exists." if not FileTest.exists?(wallet_path)
         if ARGV[2] != "iknowwhatiamdoing"                     # TODO : document me
             STDERR.puts "Type the following sentence to confirm deletion: \"I know what I am doing.\""
@@ -86,25 +85,25 @@ begin
         end
         File.delete(wallet_path)
 
-    when 'list':
+    when 'list'
                 raise "Wallet '#{wallet_name}' does not exists." if not FileTest.exists?(wallet_path)
         wallet = Wallet.new(wallet_path, password_asker)
         puts wallet.entries
 
-    when 'put':
+    when 'put'
                 raise "Wallet '#{wallet_name}' does not exists." if not FileTest.exists?(wallet_path)
         raise "put command need at least one argument: name " if ARGV[2].nil?
         wallet = Wallet.new(wallet_path, password_asker)
         wallet.put(ARGV[2],ARGV[3])
         wallet.save
 
-    when 'get':
+    when 'get'
                 raise "Wallet '#{wallet_name}' does not exists." if not FileTest.exists?(wallet_path)
         raise "get command need one argument: name " if ARGV[2].nil?
         wallet = Wallet.new(wallet_path, password_asker)
         puts wallet.get(ARGV[2])
 
-    when 'remove':
+    when 'remove'
         raise "Wallet '#{wallet_name}' does not exists." if not FileTest.exists?(wallet_path)
         raise "remove command need one argument: name " if ARGV[2].nil?
         wallet = Wallet.new(wallet_path, password_asker)
