@@ -1,0 +1,66 @@
+# rwallet
+
+
+    rwallet is a command line wallet written in ruby and implemented as a simple
+    cyphered key value store meant to be used in unix shell scripts.
+
+## versions
+
+    X.Y.Z
+    X increment denotes a wallet format change
+    Y increment denotes features changes
+    Z increment denotes bug fixes
+
+## install
+
+Install the gem by running the following command in a directory containing the rwallet distribution:
+
+    gem install rwallet
+
+This will install rwallet and its dependencies. After that you should be able to use the rwallet command.
+
+rwallet use ezcrypto but unfortunately the ezcrypto gem does not trigger the openssl gem install, you'll have to install it manually
+
+Here is the command line help output so you can see what are the rwallet features :
+
+    eskatos@codeartisans:~$ rwallet --help
+    rwallet-1.0.0 - rwallet is a command line wallet written in ruby and implemented
+    as a simple cyphered key value store meant to be used in unix shell scripts
+
+    Usage:  rwallet wallet_name command [OPTIONS..]
+
+     Wallets are stored in /home/eskatos/.rwallet.
+
+     Password and values are asked without echoing them and prompt is written to
+     stderr to allow using output with redirections.
+
+    Available commands:
+     create [algorithm]     Create a new wallet
+     delete                 Delete a wallet
+     put name [value]       Put a new key-value in a wallet
+     get name               Get a value from a wallet
+     remove name            Remove a key-value from a wallet
+
+     Known algorithms are : blowfish, aes256 and des.
+     Blowish is the default.
+
+    Examples (all using a 'foo' wallet)
+     rwallet foo create aes256         Create an empty wallet named 'foo' using the aes256 algorithm
+     rwallet foo delete                Delete the 'foo' wallet
+     rwallet foo list                  List all entries from the 'foo' wallet
+     rwallet foo put myKey myValue     Add a myKey entry in the 'foo' wallet with the provided value
+     rwallet foo put aKey              Add an aKey entry in the 'foo' wallet, rwallet will ask for the value
+     rwallet foo get aKey              Get the aKey entry from the 'foo' wallet
+     rwallet foo remove myKey          Remove the myKey entry from the 'foo' wallet
+
+    Return status:
+     0 if OK,
+     1 is something went wrong
+
+
+## build
+
+You need rspec to build rwallet.
+
+Common rake tasks are : clean, gem, rdoc. A package task exists that produce a tar.gz distribution for manual installing or distribution packaging.
+
