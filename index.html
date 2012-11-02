@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Rwallet by eskatos</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Rwallet</h1>
+        <p>Ruby based command line password wallet meant to be used in scripts</p>
+
+        <p class="view"><a href="https://github.com/eskatos/rwallet">View the Project on GitHub <small>eskatos/rwallet</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/eskatos/rwallet/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/eskatos/rwallet/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/eskatos/rwallet">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>rwallet</h1>
+
+<pre><code>rwallet is a command line wallet written in ruby and implemented as a simple
+cyphered key value store meant to be used in unix shell scripts.
+</code></pre>
+
+<h2>versions</h2>
+
+<pre><code>X.Y.Z
+X increment denotes a wallet format change
+Y increment denotes features changes
+Z increment denotes bug fixes
+</code></pre>
+
+<h2>install</h2>
+
+<p>Install the gem by running the following command in a directory containing the rwallet distribution:</p>
+
+<pre><code>gem install rwallet
+</code></pre>
+
+<p>This will install rwallet and its dependencies. After that you should be able to use the rwallet command.</p>
+
+<p>rwallet use ezcrypto but unfortunately the ezcrypto gem does not trigger the openssl gem install, you'll have to install it manually</p>
+
+<p>Here is the command line help output so you can see what are the rwallet features :</p>
+
+<pre><code>eskatos@codeartisans:~$ rwallet --help
+rwallet-1.0.0 - rwallet is a command line wallet written in ruby and implemented
+as a simple cyphered key value store meant to be used in unix shell scripts
+
+Usage:  rwallet wallet_name command [OPTIONS..]
+
+ Wallets are stored in /home/eskatos/.rwallet.
+
+ Password and values are asked without echoing them and prompt is written to
+ stderr to allow using output with redirections.
+
+Available commands:
+ create [algorithm]     Create a new wallet
+ delete                 Delete a wallet
+ put name [value]       Put a new key-value in a wallet
+ get name               Get a value from a wallet
+ remove name            Remove a key-value from a wallet
+
+ Known algorithms are : blowfish, aes256 and des.
+ Blowish is the default.
+
+Examples (all using a 'foo' wallet)
+ rwallet foo create aes256         Create an empty wallet named 'foo' using the aes256 algorithm
+ rwallet foo delete                Delete the 'foo' wallet
+ rwallet foo list                  List all entries from the 'foo' wallet
+ rwallet foo put myKey myValue     Add a myKey entry in the 'foo' wallet with the provided value
+ rwallet foo put aKey              Add an aKey entry in the 'foo' wallet, rwallet will ask for the value
+ rwallet foo get aKey              Get the aKey entry from the 'foo' wallet
+ rwallet foo remove myKey          Remove the myKey entry from the 'foo' wallet
+
+Return status:
+ 0 if OK,
+ 1 is something went wrong
+</code></pre>
+
+<h2>build</h2>
+
+<p>You need rspec to build rwallet.</p>
+
+<p>Common rake tasks are : clean, gem, rdoc. A package task exists that produce a tar.gz distribution for manual installing or distribution packaging.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/eskatos">eskatos</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-36048640-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
